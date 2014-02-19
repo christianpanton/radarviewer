@@ -1,0 +1,72 @@
+# The annotated map file (sort of)
+# Created by Pericles S. Nacionales for the MapServer tutorial
+# 20050408
+#
+# MapServer map file uses the pound sign (#) to denote the start of a line
+# comment--each line that needs to be commented has to be prepended with a "#".
+#
+# Map files begin with MAP keyword to signify the start of the map object.
+# Well, the entire map file is THE map object.  Enclosed between MAP and END
+# at the very bottom of this map file, are keyword/value pairs and other
+# objects.
+MAP
+
+  SHAPEPATH      "/home/panton/radar_canvas/map/shapes"
+  IMAGECOLOR     128 128 128
+
+  WEB
+    METADATA
+      ows_enable_request "*"
+    END
+  END
+
+  PROJECTION
+    "init=epsg:3413"
+  END
+
+  LAYER 
+    NAME         world
+    DATA         "ne_10m_admin_0_countries"
+    STATUS       OFF
+    TYPE         POLYGON
+
+    PROJECTION
+      "init=epsg:4326"
+    END
+
+    CLASS
+      STYLE
+        COLOR        255 255 255
+        OUTLINECOLOR 255 255 255
+        WIDTH 0
+      END
+    END
+  END 
+  
+  LAYER 
+    NAME         flights
+    DATA         "flightline"
+    STATUS       OFF
+    TYPE         LINE
+
+    PROJECTION
+      "init=epsg:4326"
+    END
+
+    METADATA
+      "wfs_title"         "flight" ##REQUIRED
+      "wfs_srs"           "EPSG:4326" ## REQUIRED
+      "gml_include_items" "all" ## Optional (serves all attributes for layer)
+      "gml_featureid"     "ID" ## REQUIRED
+      "wfs_enable_request" "*"
+    END
+
+    CLASS
+      STYLE
+        COLOR        0 0 0
+        OUTLINECOLOR 0 0 0
+      END
+    END
+  END 
+
+END 
